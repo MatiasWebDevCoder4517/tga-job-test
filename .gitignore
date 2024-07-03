@@ -1,0 +1,49 @@
+**.idea
+**.pytest_cache
+**htmlcov
+**.coverage
+*.pyc
+*.logs
+*.log
+*.log.*
+*.drawio
+*.png
+*.sh
+*.xlsx
+.vscode
+.devcontainer
+.logs
+*.json
+
+## Tests
+refactor.py
+time_functions_test.py
+refactor2.py
+outputs.py
+
+
+# Environments
+.env
+.venv
+env/
+logs/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# mypy
+.mypy_cache/
+
+# Docker
+docker-compose.yml
+local.yml
+mysql-test.yml
+redis_test.yml
+Dockerfile.*
