@@ -18,7 +18,7 @@
 ## Tests
 refactor.py
 time_functions_test.py
-refactor2.py
+bugs.py
 outputs.py
 
 
@@ -40,10 +40,3 @@ __pycache__/
 
 # mypy
 .mypy_cache/
-
-# Docker
-docker-compose.yml
-local.yml
-mysql-test.yml
-redis_test.yml
-Dockerfile.*
