@@ -21,7 +21,6 @@ time_functions_test.py
 bugs.py
 outputs.py
 
-
 # Environments
 .env
 .venv
@@ -40,3 +39,6 @@ __pycache__/
 
 # mypy
 .mypy_cache/
+
+# SQL
+table1.sql
