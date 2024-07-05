@@ -21,7 +21,6 @@ def main():
     LOGGER.info("Connecting to MySQL database... ")
     mysql_session = next(mysql_db())
     database_data = get_db_data(mysql_session)
-    ##LOGGER.info(f"GENERAL_SATISFACTION: {database_data}")
 
     if not database_data:
         LOGGER.critical("Empty data received!")
@@ -61,12 +60,7 @@ def main():
 
     ## 3.
     filename = filename_date()
-    build_pdf = get_pdf_file(chatgpt_psychological_analysis, biggest_issues, filename)
-    LOGGER.info(f"PDF_BUILD: {build_pdf}")
-
-    print("END BREAKPOINT")
-
-    return "Execution Finished!"
+    return get_pdf_file(chatgpt_psychological_analysis, biggest_issues, filename)
 
 
 if __name__ == "__main__":
