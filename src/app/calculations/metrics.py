@@ -1,11 +1,8 @@
 # Standard Library
 from datetime import datetime
 
-# External
-from dateutil.relativedelta import relativedelta
-
 # Project
-from app.config import LOGGER
+from app.config import LOGGER, PDF_FILENAME
 
 
 YES_ANSWER = "Sí"
@@ -17,6 +14,10 @@ def get_sng_general_satisfaction(db_data: list[dict]) -> int:
     total_dissatisfaction = 0
     total_neutrals = 0
     total_answers = len(db_data)
+
+    if not total_answers or total_answers == 0:
+        LOGGER.error("No valid data found!")
+        return 0
 
     for item in db_data:
         satisfaction_value = item.get("satisfeccion_general")
@@ -40,6 +41,7 @@ def get_sng_general_satisfaction(db_data: list[dict]) -> int:
 def get_known_company_answers(db_data: list[dict]) -> int:
     total_known = 0
     total_unknown = 0
+
     for item in db_data:
         known_value = item.get("conocia_empresa", "")
 
@@ -60,6 +62,10 @@ def get_sng_recomendation(db_data: list[dict]) -> int:
     total_dissatisfaction = 0
     total_neutrals = 0
     total_answers = len(db_data)
+
+    if not total_answers or total_answers == 0:
+        LOGGER.error("No valid data found!")
+        return 0
 
     for item in db_data:
         recomendation_value = item.get("recomendacion")
@@ -84,14 +90,17 @@ def get_recomendations_avg(db_data: list[dict]) -> float:
     accumulator = 0
     total_answers = len(db_data)
 
+    if not total_answers or total_answers == 0:
+        LOGGER.error("No valid data found!")
+        return 0.0
+
     for item in db_data:
         recomendation_value = item.get("recomendacion")
 
-        if isinstance(recomendation_value, int):
-            accumulator += recomendation_value
-        else:
+        if not isinstance(recomendation_value, int):
             LOGGER.info("Invalid recomendacion!")
             continue
+        accumulator += recomendation_value
     return float(f"{(accumulator / total_answers):.2f}")
 
 
@@ -102,31 +111,30 @@ def get_total_comentaries(db_data: list[dict]) -> int:
     for item in db_data:
         comentary_value = item.get("recomendacion_abierta", "")
 
-        if isinstance(comentary_value, str):
-            total_comentaries += 1
-        else:
+        if not isinstance(comentary_value, str):
             total_nones += 1
             continue
+
+        total_comentaries += 1
     return total_comentaries
 
 
 ## Objective 1.f
-"""ADJUST TO GET THE TOTAL DURATION MONTHS RIGHT"""
-
-
-def get_months_days(data: list[dict]):
-    dates = [datetime.strptime(item["fecha"], "%Y-%m-%d %H:%M:%S") for item in data]
+def get_months_days(db_data: list[dict]):
+    dates = [datetime.strptime(item["fecha"], "%Y-%m-%d %H:%M:%S") for item in db_data]
     min_date = min(dates)
     max_date = max(dates)
-    duration = max_date - min_date
-    duration_days = duration.days
-    duration_months = (
-        relativedelta(max_date, min_date).months + relativedelta(max_date, min_date).years * 12
-    )
+    duration_days = max_date - min_date
+    duration_months = max_date.month - min_date.month
     return {
-        "min_date": min_date,
-        "max_date": max_date,
-        "duration": duration,
-        "duration_days": duration_days,
+        "duration_days": duration_days.days,
         "duration_months": duration_months,
     }
+
+
+## Objective 3.
+def filename_date():
+    today = datetime.now()
+    date_str = today.strftime("%d-%m-%Y")
+    name, ext = PDF_FILENAME.rsplit(".", 1)
+    return f"{name}_{date_str}.{ext}"

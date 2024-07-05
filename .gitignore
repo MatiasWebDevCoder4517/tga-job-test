@@ -14,6 +14,7 @@
 .devcontainer
 .logs
 *.json
+*.pdf
 
 ## Tests
 refactor.py

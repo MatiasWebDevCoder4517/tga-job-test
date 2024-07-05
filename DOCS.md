@@ -12,6 +12,7 @@
 - requirements.txt
 - environment variables (.env)
 - Cliente MySQL
+- OpenAI API KEY
 
 # Instalacion Inicial
 
@@ -32,10 +33,7 @@ Alternativamente:
 
 ## Instrucciones
 
-- Ejecucion simple a travez de 'export FLASK_APP=main.py' o Ejecucion simple a travez de Dockerfile.
-
--> E.simple:
-python main.py
+- Ejecucion simple a travez de python main.py o Ejecucion simple a travez de Dockerfile.
 
 -> Dockerfile:
 sudo docker-compose -f <name_docker_compose.yml> up -d

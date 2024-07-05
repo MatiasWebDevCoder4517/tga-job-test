@@ -1,5 +1,13 @@
 # Local
-from .globals import MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_SERVER, MYSQL_USER, PROJECT_NAME
+from .globals import (
+    API_KEY_CHATGPT,
+    MYSQL_DATABASE,
+    MYSQL_PASSWORD,
+    MYSQL_SERVER,
+    MYSQL_USER,
+    PDF_FILENAME,
+    PROJECT_NAME,
+)
 from .logger import create_logger
 
 
@@ -12,4 +20,6 @@ __all__ = [
     "MYSQL_USER",
     "MYSQL_PASSWORD",
     "MYSQL_DATABASE",
+    "API_KEY_CHATGPT",
+    "PDF_FILENAME",
 ]
